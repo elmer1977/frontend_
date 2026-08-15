@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./App.css";
 import Store from "./redux/store";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { HashRouter, Routes, Route } from "react-router-dom";
 import { useSelector } from "react-redux";
 import {
   LoginPage,
@@ -94,7 +94,7 @@ const App = () => {
   }, [isAuthenticated, isSeller]);
 
   return (
-    <BrowserRouter>
+    <HashRouter>
       {stripeApikey && (
         <Elements stripe={loadStripe(stripeApikey)}>
           <Routes>
@@ -365,7 +365,7 @@ const App = () => {
         pauseOnHover
         theme="dark"
       />
-    </BrowserRouter>
+    </HashRouter>
   );
 };
 export default App;
