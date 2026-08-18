@@ -104,6 +104,11 @@ const ProductCard = ({ data, isEvent }) => {
                             {data?.sold_out} sold
                         </span>
                     </div>
+                    <div className='pt-1'>
+                        <span className={`text-[14px] font-medium ${data?.stock > 0 ? 'text-green-600' : 'text-red-500'}`}>
+                            {data?.stock > 0 ? `Stock: ${data.stock}` : 'Out of stock'}
+                        </span>
+                    </div>
                 </Link>
 
                 {/* side option */}

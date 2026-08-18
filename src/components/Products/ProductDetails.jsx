@@ -61,6 +61,8 @@ const ProductDetails = ({ data }) => {
     } else {
       if (data.stock < 1) {
         toast.error("Product stock limited!");
+      } else if (count > data.stock) {
+        toast.error(`Only ${data.stock} item(s) left in stock.`);
       } else {
         const cartData = { ...data, qty: count };
         dispatch(addTocart(cartData));
@@ -70,7 +72,9 @@ const ProductDetails = ({ data }) => {
   };
 
   const incrementCount = () => {
-    setCount(count + 1);
+    if (data && count < data.stock) {
+      setCount(count + 1);
+    }
   };
   const decrementCount = () => {
     if (count > 1) {
@@ -170,6 +174,18 @@ const ProductDetails = ({ data }) => {
                   <h3 className={`${styles.price}`}>
                     {data.originalPrice ? data.originalPrice + "$" : null}
                   </h3>
+                </div>
+
+                <div className="mt-4">
+                  <p
+                    className={`text-[15px] font-medium ${
+                      data.stock > 0 ? "text-green-600" : "text-red-500"
+                    }`}
+                  >
+                    {data.stock > 0
+                      ? `In stock: ${data.stock} available`
+                      : "Out of stock"}
+                  </p>
                 </div>
 
                 {/* inc dec option */}

@@ -9,8 +9,9 @@ import styles from "../../styles/styles";
 import { TfiGallery } from "react-icons/tfi";
 import socketIO from "socket.io-client";
 import { format } from "timeago.js";
-const ENDPOINT = "http://localhost:4000/";
-const socketId = socketIO(ENDPOINT, { transports: ["websocket"] });
+import { socketEndpoint } from "../../server";
+
+const socketId = socketIO(socketEndpoint, { transports: ["websocket"] });
 
 const DashboardMessages = () => {
   const { seller } = useSelector((state) => state.seller);
