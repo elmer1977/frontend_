@@ -38,8 +38,34 @@ export const loadSeller = () => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: "LoadSellerFail",
-      payload: error.response.data.message,
+      payload: error.response?.data?.message || "Session expired",
     });
+  }
+};
+
+export const logoutUser = () => async (dispatch) => {
+  try {
+    const { data } = await axios.get(`${server}/user/logout`, {
+      withCredentials: true,
+    });
+    dispatch({ type: "LogoutUserSuccess" });
+    return data;
+  } catch (error) {
+    dispatch({ type: "LoadUserFail", payload: error.response?.data?.message || "Logout failed" });
+    throw error;
+  }
+};
+
+export const logoutSeller = () => async (dispatch) => {
+  try {
+    const { data } = await axios.get(`${server}/shop/logout`, {
+      withCredentials: true,
+    });
+    dispatch({ type: "LogoutSellerSuccess" });
+    return data;
+  } catch (error) {
+    dispatch({ type: "LoadSellerFail", payload: error.response?.data?.message || "Logout failed" });
+    throw error;
   }
 };
 

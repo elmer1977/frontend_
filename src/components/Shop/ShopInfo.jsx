@@ -1,13 +1,13 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import { toast } from "react-toastify";
 import { getAllProductsShop } from "../../redux/actions/product";
+import { logoutSeller } from "../../redux/actions/user";
 import { backend_url, server } from "../../server";
 import styles from "../../styles/styles";
 import Loader from "../Layout/Loader";
-
-
 
 const ShopInfo = ({ isOwner }) => {
     const [data, setData] = useState({});
@@ -16,7 +16,7 @@ const ShopInfo = ({ isOwner }) => {
 
     const { id } = useParams();
     const dispatch = useDispatch();
-
+    const navigate = useNavigate();
 
     useEffect(() => {
         if (!id) return; // guard when no route param (e.g., preview without param)
@@ -33,10 +33,14 @@ const ShopInfo = ({ isOwner }) => {
 
 
     const logoutHandler = async () => {
-        axios.get(`${server}/shop/logout`, {
-            withCredentials: true,
-        });
-        window.location.reload();
+        try {
+            const response = await dispatch(logoutSeller());
+            toast.success(response?.message || "Log out successful!");
+            navigate("/shop-login");
+            window.location.reload();
+        } catch (error) {
+            toast.error(error?.response?.data?.message || "Logout failed. Please try again.");
+        }
     };
 
 
