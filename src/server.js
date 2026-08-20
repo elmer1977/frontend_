@@ -1,5 +1,5 @@
-const defaultServer = "https://p4brrcnh-8000.asse.devtunnels.ms/api/v2";
-const defaultBackendUrl = "https://p4brrcnh-8000.asse.devtunnels.ms/";
+const defaultServer = "https://motocross-earthen-shrewdly.ngrok-free.dev/api/v2";
+const defaultBackendUrl = "https://motocross-earthen-shrewdly.ngrok-free.dev/";
 
 const apiBaseUrl =
   process.env.REACT_APP_API_URL ||
